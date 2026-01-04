@@ -1,6 +1,6 @@
 # DATA
 dataset = 'raildb'
-data_root = '/home/xinpeng/Rail-DB/'
+data_root = '/kaggle/working/updated1/Rail-DB/'
 
 # TRAIN
 epoch = 100
@@ -25,15 +25,15 @@ cls_num_per_lane = 52
 # EXP
 note = 'test'
 
-log_path = '/home/xinpeng/Rail-DB/log'
+log_path = '/kaggle/working/updated1/Rail-DB/log'
 
 # FINETUNE or RESUME MODEL PATH
 finetune = None
 resume = None
 
 # TEST
-test_model = '/home/xinpeng/Rail-DB/log/test_model.pth'
-test_work_dir = '/home/xinpeng/Rail-DB/test/'
+test_model = '/kaggle/working/updated1/Rail-DB/log/test_model.pth'
+test_work_dir = '/kaggle/working/updated1/Rail-DB/test/'
 
 num_lanes = 4
 type = 'all'
