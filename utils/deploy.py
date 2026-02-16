@@ -88,7 +88,7 @@ def deploy_videos(video_path, net):
 
 if __name__ == "__main__":
     torch.backends.cudnn.benchmark = True
-    os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
     dist_print('start testing...')
 
     net = parsingNet(pretrained = False, backbone='18', cls_dim = (griding_num+1, len(raildb_row_anchor), 4),).cuda()
@@ -107,3 +107,4 @@ if __name__ == "__main__":
     # deploy_image('./example.jpg', net)
 
 # python deploy.py
+
