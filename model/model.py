@@ -80,25 +80,9 @@ class parsingNet(torch.nn.Module):
         # n c h w - > n 2048 sh sw
         # -> n 2048
         x4 = self.model(x)
-        fea = self.pool(x4)
-        fea = F.adaptive_avg_pool2d(fea, (9, 25))
-        fea = fea.view(fea.size(0), 8, -1).permute(0, 2, 1)  # [B, 225, 8]
 
-        # Build a full adjacency edge_index for 225 nodes
-        device = fea.device
-        edge_index = torch.combinations(torch.arange(self.num_nodes, device=device), r=2).T
-        # Add both directions and self-loops
-        edge_index = torch.cat([edge_index, edge_index.flip(0), torch.arange(self.num_nodes, device=device).repeat(2, 1)], dim=1)
+        fea = self.pool(x4).view(-1, 1800)
 
-        outputs = []
-        for b in range(fea.size(0)):
-            node_features = fea[b]  # [225, 8]
-            x1 = F.relu(self.gc1(node_features, edge_index))
-            x2 = self.gc2(x1, edge_index)
-            outputs.append(x2)
-
-        fea = torch.stack(outputs, dim=0)  # [B, 225, 8]
-        fea = fea.reshape(fea.size(0), -1)
         group_cat = self.cls_cat(fea).view(-1, *self.cls_dim)
 
         return group_cat
@@ -127,5 +111,6 @@ def real_init_weights(m):
                 real_init_weights(mini_m)
         else:
             print('unkonwn module', m)
+
 
 
